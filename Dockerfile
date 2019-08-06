@@ -1,41 +1,20 @@
-FROM ubuntu:18.04
-MAINTAINER Geoff Lane <geoff.lane@profootballfocus.com>
+FROM alpine:3.10
+MAINTAINER Geoff Lane <geoff.lane@pff.com>
 
-ENV REFRESH 20190718
-# Make sure interactive install elements are hidden
-ENV DEBIAN_FRONTEND noninteractive
+ENV REFRESH 20190806
 
-# Install random dependencies
-# libssh needed for gitr
-RUN apt-get -y update \
-   && apt-get install -y  \
-    build-essential \
-    software-properties-common \
-    curl \
-    libxml2-dev \
-    ca-certificates \
-    libssl-dev \
-    libssh2-1-dev \
-    libssh2-1 \
-    libgit2-26 \
-    libgit2-dev \
-    libcurl4-gnutls-dev \
-    openssh-client \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install build depdendencies
+# libssh2 and libgit2 needed for gitr
+RUN apk upgrade --update --no-cache && \
+    apk --update --no-cache add \
+    alpine-sdk coreutils wget git ca-certificates pkgconfig autoconf automake libtool nasm gcc gawk \
+    linux-headers \
+    libpng-dev ncurses-dev openssl-dev \
+    libxml2-dev libxml2 \
+    openssh-client libssh2 libssh2-dev libgit2-dev libgit2
 
-# Install R 3.5
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
-      && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
-      && apt-get update \
-      && apt-get install -y \
-      r-base \
-      r-base-core \
-      r-recommended \
-      && apt-get clean \
-      && rm -rf /var/lib/apt/lists/*
+# Install R 3.6
+RUN apk add --no-cache R R-dev
 
-# Install dependencies
-RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org')"
-RUN R -e "install.packages('git2r', repos='https://cloud.r-project.org')"
-RUN R -e "install.packages('usethis', repos='https://cloud.r-project.org')"
+# Install R dependencies
+RUN R -e "install.packages(c('devtools', 'git2r', 'usethis', 'remotes'), repos='https://cloud.r-project.org', clean=TRUE, quiet=TRUE, INSTALL_opts=c('--no-html'))"
