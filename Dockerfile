@@ -36,6 +36,4 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
       && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
-RUN R -e "install.packages('devtools', repos='https://cloud.r-project.org')"
-RUN R -e "install.packages('git2r', repos='https://cloud.r-project.org')"
-RUN R -e "install.packages('usethis', repos='https://cloud.r-project.org')"
+RUN R -e "install.packages(c('devtools', 'git2r', 'usethis'), repos='https://cloud.r-project.org', clean=true)"
