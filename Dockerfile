@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 MAINTAINER Geoff Lane <geoff.lane@profootballfocus.com>
 
-ENV REFRESH 20190827
+ENV REFRESH 20190827-1
 # Make sure interactive install elements are hidden
 ENV DEBIAN_FRONTEND noninteractive
 
