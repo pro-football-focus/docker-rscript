@@ -1,7 +1,7 @@
 FROM alpine:3.10
 MAINTAINER Geoff Lane <geoff.lane@pff.com>
 
-ENV REFRESH 20190806
+ENV REFRESH 20190827
 
 # Install build depdendencies
 # libssh2 and libgit2 needed for gitr
