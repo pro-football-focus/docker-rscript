@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 MAINTAINER Geoff Lane <geoff.lane@profootballfocus.com>
 
-ENV REFRESH 20190827-1
+ENV REFRESH 20200109
 # Make sure interactive install elements are hidden
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -24,7 +24,7 @@ RUN apt-get -y update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install R 3.5
+# Install R 3.6, even though below says 3.5... right
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
       && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
       && apt-get update \
