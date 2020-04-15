@@ -2,6 +2,10 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
+R_VERSION=3.6.3
 VERSION=$(cat version)
 
-docker build -t profootballfocus/rscript_run:$VERSION -f Dockerfile .
+docker build \
+   --build-arg R_VERSION="${R_VERSION}" \
+   -t profootballfocus/rscript_run:$VERSION \
+   -f Dockerfile .
