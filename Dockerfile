@@ -1,9 +1,9 @@
-FROM alpine:3.11.5
-
+FROM alpine:3.12
 MAINTAINER Ian Perks ian@pff.com
 
 ARG R_VERSION
-ENV R_VERSION ${R_VERSION:-3.5.0}
+ENV R_VERSION ${R_VERSION:-4.0.2}
+ENV REFRESHED_AT=20200818
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
@@ -18,7 +18,7 @@ RUN apk --no-cache add \
         icu-dev \
         bzip2-dev \
         xz-dev \
-        pcre-dev \
+        pcre2-dev \
         libjpeg-turbo-dev \
         libpng-dev \
         tiff-dev  \
