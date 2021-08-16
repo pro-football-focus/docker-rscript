@@ -3,7 +3,7 @@ MAINTAINER Ian Perks ian@pff.com
 
 ARG R_VERSION
 ENV R_VERSION ${R_VERSION:-4.0.5}
-ENV REFRESHED_AT=20210728
+ENV REFRESHED_AT=20210816
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
@@ -75,6 +75,8 @@ RUN apk --no-cache add \
     ln -s /usr/bin/R /usr/lib/R/bin/R && \
 # Fis library path
     echo "R_LIBS_SITE=\${R_LIBS_SITE-'/usr/local/lib/R/site-library:/usr/lib/R/library'}" >> /usr/lib/R/etc/Renviron && \
+# R expects iconv -l to return whitespace-separated list of locales, our returns ', ' separated so it adds a , for every locale
+    sed -i 's/,//g' /usr/lib/R/library/utils/iconvlist && \
 # Add default CRAN mirror
     echo 'options(repos = c(CRAN = "https://cloud.r-project.org/"))' >> /usr/lib/R/etc/Rprofile.site && \
 # Add symlinks for the config ifile in /etc/R
