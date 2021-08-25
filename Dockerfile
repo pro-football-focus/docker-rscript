@@ -32,6 +32,7 @@ RUN apk --no-cache add \
         libexecinfo \
         libexecinfo-dev \
         curl \
+        tzdata \
         wget && \
 # R build dependencies
     apk --no-cache add --virtual build-deps \
